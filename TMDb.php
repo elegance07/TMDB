@@ -27,7 +27,7 @@ class TMDb
 	const API_SCHEME = 'http://';
 	const API_SCHEME_SSL = 'https://';
 
-	const VERSION = '1.5.0';
+	const VERSION = '1.5.2';
 
 	/**
 	 * The API-key
