@@ -5,10 +5,10 @@
  * Documentation and usage in README file
  *
  * @author Jonas De Smet - Glamorous
- * @since 26.11.2021 - Elegance
+ * @since 09.11.2009
  * @date 16.11.2012
  * @copyright Jonas De Smet - Glamorous
- * @version 1.5.2
+ * @version 1.5.1
  * @license BSD http://www.opensource.org/licenses/bsd-license.php
  */
 
@@ -21,13 +21,14 @@ class TMDb
 	const IMAGE_BACKDROP = 'backdrop';
 	const IMAGE_POSTER = 'poster';
 	const IMAGE_PROFILE = 'profile';
+        const IMAGE_STILL = 'still';
 
 	const API_VERSION = '3';
 	const API_URL = 'api.themoviedb.org';
 	const API_SCHEME = 'http://';
 	const API_SCHEME_SSL = 'https://';
 
-	const VERSION = '1.5.2';
+	const VERSION = '1.5.0';
 
 	/**
 	 * The API-key
@@ -621,7 +622,7 @@ class TMDb
 		$params = array(
 			'language' => ($lang !== NULL) ? $lang : $this->getLang(),
 		);
-		return $this->_makeCall('person/'.$id.'/credits', $params);
+		return $this->_makeCall('person/'.$id.'/combined_credits', $params);
 	}
 
 	/**
@@ -922,7 +923,7 @@ class TMDb
 
 		return $config;
 	}
-
+         
 	/**
 	 * Get Image URL
 	 *
@@ -958,7 +959,7 @@ class TMDb
 	/**
 	 * Get available image sizes for a particular image type
 	 *
-	 * @param const $imagetype			Image type: TMDb::IMAGE_BACKDROP, TMDb::IMAGE_POSTER, TMDb::IMAGE_PROFILE
+	 * @param const $imagetype			Image type: TMDb::IMAGE_BACKDROP, TMDb::IMAGE_POSTER, TMDb::IMAGE_PROFILE, TMDb::IMAGE_STILL
 	 * @return array
 	 */
 	public function getAvailableImageSizes($imagetype)
