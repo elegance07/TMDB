@@ -105,6 +105,26 @@ class TMDb
 		);
 		return $this->_makeCall('search/movie', $params);
 	}
+         /**
+	 * Search a tvshow by querystring
+	 *
+	 * @param string $text				Query to search after in the TMDb database
+	 * @param int $page					Number of the page with results (default first page)
+	 * @param bool $adult				Whether of not to include adult movies in the results (default FALSE)
+	 * @param mixed $lang				Filter the result with a language (ISO 3166-1) other then default, use FALSE to retrieve results from all languages
+	 * @return TMDb result array
+	 */
+	public function searchTVShow($query, $page = 1, $adult = FALSE, $year = NULL, $lang = NULL)
+	{
+		$params = array(
+			'query' => $query,
+			'page' => (int) $page,
+			'language' => ($lang !== NULL) ? $lang : $this->getLang(),
+			'include_adult' => (bool) $adult,
+			'year' => $year,
+		);
+		return $this->_makeCall('search/tv', $params);
+	}
 
 	/**
 	 * Search a person by querystring
@@ -162,10 +182,11 @@ class TMDb
 	 * @param mixed $lang				Filter the result with a language (ISO 3166-1) other then default, use FALSE to retrieve results from all languages
 	 * @return TMDb result array
 	 */
-	public function getMovie($id, $lang = NULL)
+	public function getMovie($id, $append_to_response=NULL ,$lang = NULL)
 	{
 		$params = array(
 			'language' => ($lang !== NULL) ? $lang : $this->getLang(),
+                        'append_to_response' => $append_to_response,
 		);
 		return $this->_makeCall('movie/'.$id, $params);
 	}
@@ -461,6 +482,23 @@ class TMDb
 		);
 		return $this->_makeCall('movie/upcoming', $params);
 	}
+          /**
+	 * 	Discover Movies
+	 *	@add by tnsws
+	 *
+	 * 	@return Movie[]
+	 */
+	public function getDiscoverMovies($page = 1,$genre = NULL,$sort = NULL,$year = NULL,$lang = NULL) {
+
+		$params = array(
+			'page' => (int) $page,
+			'language' => ($lang !== NULL) ? $lang : $this->getLang(), 
+                        'with_genres' => $genre,
+                        'sort_by' => $sort,
+                        'year' => $year,
+		);
+		return $this->_makeCall('discover/movie', $params);
+	}
 
 	/**
 	 * Retrieve movies currently in theatres
@@ -722,6 +760,15 @@ class TMDb
 			'language' => ($lang !== NULL) ? $lang : $this->getLang(),
 		);
 		return $this->_makeCall('genre/'.$id.'/movies', $params);
+	}
+         /**
+	 * Retrieve configuration countriesTMDb
+	 *
+	 * @return TMDb result array
+	 */
+	public function getCountries()
+	{
+		return $this->_makeCall('configuration/countries');
 	}
 
 	/**
