@@ -5,7 +5,7 @@
  * Documentation and usage in README file
  *
  * @author Jonas De Smet - Glamorous
- * @since 09.11.2009
+ * @since 09.11.2021 Elegance
  * @date 16.11.2012
  * @copyright Jonas De Smet - Glamorous
  * @version 1.5.1
